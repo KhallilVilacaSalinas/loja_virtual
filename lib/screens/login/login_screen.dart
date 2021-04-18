@@ -46,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                   TextFormField(
                     enabled: !userManager.loading,
@@ -71,49 +71,69 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 35,
                   ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: SizedBox(
-                      height: 46,
-                      width: 180,
-                      child: ElevatedButton(
-                        onPressed: userManager.loading
-                            ? null
-                            : () {
-                                if (formKey.currentState.validate()) {
-                                  userManager.signIn(
-                                      user: Usuario(
-                                        email: _controllerEmail.text,
-                                        password: _controllersenha.text,
-                                      ),
-                                      onFail: (e) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                          content: Text('Falha ao entrar: $e'),
-                                          backgroundColor: Colors.red,
-                                        ));
-                                      },
-                                      onSuccess: () {
-                                        // TODO: FECHAR TELA DE LOGIN
-                                        print("Foi");
-                                      });
-                                }
-                              },
-                        style: ElevatedButton.styleFrom(
-                            primary: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0))),
-                        child: userManager.loading
-                            ? CircularProgressIndicator()
-                            : Text(
-                                "Entrar",
-                                style: TextStyle(fontSize: 18),
-                              ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: TextButton(
+                          child: Text(
+                            'CRIAR CONTA',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/singup');
+                          },
+                        ),
                       ),
-                    ),
-                  )
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: SizedBox(
+                          height: 46,
+                          width: 180,
+                          child: ElevatedButton(
+                            onPressed: userManager.loading
+                                ? null
+                                : () {
+                                    if (formKey.currentState.validate()) {
+                                      userManager.signIn(
+                                          user: Usuario(
+                                            email: _controllerEmail.text,
+                                            password: _controllersenha.text,
+                                          ),
+                                          onFail: (e) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                              content:
+                                                  Text('Falha ao entrar: $e'),
+                                              backgroundColor: Colors.red,
+                                            ));
+                                          },
+                                          onSuccess: () {
+                                            Navigator.of(context).pop();
+                                          });
+                                    }
+                                  },
+                            style: ElevatedButton.styleFrom(
+                                primary: Theme.of(context).primaryColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0))),
+                            child: userManager.loading
+                                ? CircularProgressIndicator()
+                                : Text(
+                                    "Entrar",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               );
             }),

@@ -6,6 +6,9 @@ String getErrorString(String code) {
     case 'invalid-email':
       return 'Seu e-mail é inválido.';
 
+    case 'email-already-in-use':
+      return 'Este email já existe.';
+
     case 'account-exists-with-different-credential':
       return 'E-mail já está sendo utilizado em outra conta.';
 
